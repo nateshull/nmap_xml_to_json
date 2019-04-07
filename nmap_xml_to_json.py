@@ -45,17 +45,17 @@ class NmapToJSON:
 						dict_item['mac'] = c.attrib['addr']
 					base_dict_host = dict_item.copy()
 				elif c.tag == 'hostnames':
-					for names in c.getchildren():
+					for names in c:
 						if names.attrib['name']:
 							dict_item['hostname'] = names.attrib['name']
 					base_dict_host = dict_item.copy()
 				elif c.tag == 'ports':
-					for port in c.getchildren():
+					for port in c:
 						dict_item = base_dict_host.copy()
 						if port.tag == 'port':
 							dict_item['port'] = port.attrib['portid']
 							dict_item['protocol'] = port.attrib['protocol']
-							for p in port.getchildren():
+							for p in port:
 								if p.tag == 'state':
 									dict_item['state'] = p.attrib['state']
 								elif p.tag == 'service':
@@ -65,14 +65,14 @@ class NmapToJSON:
 									dict_item['script_output'] = p.attrib['output']
 								print(start_line + json.dumps(dict(dict_item.items()), sort_keys=True) + end_line)
 				elif c.tag == 'hostscript':
-					for script in c.getchildren():
+					for script in c:
 						dict_item = base_dict_host.copy()
 						if script.tag == 'script':
 							dict_item['script_id'] = script.attrib['id']
 							dict_item['script_output'] = script.attrib['output']
 							print(start_line + json.dumps(dict(dict_item.items()), sort_keys=True) + end_line)
 				elif c.tag == 'os':
-					for osmatch in c.getchildren():
+					for osmatch in c:
 						osname = ""
 						dict_item = base_dict_host.copy()
 						if osmatch.tag == 'osmatch':
@@ -82,7 +82,7 @@ class NmapToJSON:
 							else:								
 								osname = osname + ',\n' + osmatch.attrib['name']
 								dict_item['os_description'] = osmatch.attrib['name']
-							for osc in osmatch.getchildren():
+							for osc in osmatch:
 								if osc.tag == 'osclass':
 									dict_item['os_type'] = osc.attrib['type']
 									dict_item['os_vendor'] = osc.attrib['vendor']
