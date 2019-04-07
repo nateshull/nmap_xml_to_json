@@ -30,7 +30,7 @@ class NmapToJSON:
 		"Returns a list of dictionaries (only for open ports) for each host in the report"
 		start_line = ""
 		end_line = ","
-		print "["
+		print("[")
 		for h in self.root.iter('host'):
 			base_host_dict = {}
 			dict_item = {}
@@ -63,14 +63,14 @@ class NmapToJSON:
 								elif p.tag == 'script':
 									dict_item['script_id'] = p.attrib['id']
 									dict_item['script_output'] = p.attrib['output']
-								print start_line + json.dumps(dict(dict_item.items()), sort_keys=True) + end_line
+								print(start_line + json.dumps(dict(dict_item.items()), sort_keys=True) + end_line)
 				elif c.tag == 'hostscript':
 					for script in c.getchildren():
 						dict_item = base_dict_host.copy()
 						if script.tag == 'script':
 							dict_item['script_id'] = script.attrib['id']
 							dict_item['script_output'] = script.attrib['output']
-							print start_line + json.dumps(dict(dict_item.items()), sort_keys=True) + end_line
+							print(start_line + json.dumps(dict(dict_item.items()), sort_keys=True) + end_line)
 				elif c.tag == 'os':
 					for osmatch in c.getchildren():
 						osname = ""
@@ -93,9 +93,9 @@ class NmapToJSON:
 										#except AttributeError:
 									#else:									
 										#dict_item['os_gen'] = ''
-					print start_line + json.dumps(dict(dict_item.items()), sort_keys=True) + end_line
-		print "{ \"hostname\" : \"end_of_data\" }"
-		print "]"
+					print(start_line + json.dumps(dict(dict_item.items()), sort_keys=True) + end_line)
+		print("{ \"hostname\" : \"end_of_data\" }")
+		print("]")
 
 def main():
 	input_stream = sys.stdin
