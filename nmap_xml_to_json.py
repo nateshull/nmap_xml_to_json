@@ -20,7 +20,7 @@ class NmapToJSON:
 		self.root = self.tree.getroot()
 
 	def displayInputFileName(self):
-		print self.input_file
+		print(self.input_file)
 
 	def __importXML(self):
 		#Parse XML directly from the file path
